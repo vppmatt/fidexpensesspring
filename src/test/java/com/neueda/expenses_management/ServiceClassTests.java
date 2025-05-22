@@ -37,7 +37,8 @@ public class ServiceClassTests {
     @BeforeEach
     public void setupDataMocks() {
         List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(1,"","", LocalDate.now(), Department.HR, 0));
+        employees.add(new Employee(1,"bob","", LocalDate.now(), Department.HR, 0));
+        employees.add(new Employee(2,"jo","", LocalDate.now(), Department.HR, 0));
         Mockito.when(employeeDao.getAllEmployees()).thenReturn(employees);
     }
 
@@ -45,6 +46,12 @@ public class ServiceClassTests {
     @Test
     public void testGetEmployeesReturnsAllRecords() {
         List<Employee> employees = employeeService.getEmployees();
-        assertEquals(1, employees.size());
+        assertEquals(2, employees.size());
+    }
+
+    @Test
+    public void testFirstNamesAreCapitalizedWhenCallingGet() {
+        List<Employee> employees = employeeService.getEmployees();
+        assertEquals("BOB", employees.get(0).getFirstname());
     }
 }

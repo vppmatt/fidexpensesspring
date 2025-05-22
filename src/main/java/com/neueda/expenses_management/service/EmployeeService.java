@@ -18,7 +18,14 @@ public class EmployeeService {
     EmployeeDao employeeDao;
 
     public List<Employee> getEmployees() {
-        return employeeDao.getAllEmployees();
+        List<Employee> employees = employeeDao.getAllEmployees();
+
+        employees = employees.stream().map(it -> {
+            it.setFirstname(it.getFirstname().toUpperCase());
+            return it;
+        }).toList();
+
+        return employees;
     }
 
     public Employee addEmployee(Employee newEmployee) {
