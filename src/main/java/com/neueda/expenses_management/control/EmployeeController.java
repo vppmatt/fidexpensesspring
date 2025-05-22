@@ -23,7 +23,6 @@ public class EmployeeController {
     @GetMapping()
     public List<Employee> getAllEmployees(@RequestParam("cc") Optional<Integer> cc) {
         System.out.println("cc was " + (cc.isPresent() ? cc.get() : "null"));
-
         return employeeService.getEmployees();
     }
 

@@ -25,7 +25,6 @@ public class EmployeeService {
         return employeeDao.save(newEmployee);
     }
 
-
     public Employee getEmployee(Integer employeeId) throws EmployeeNotFoundException {
         return employeeDao.getById(employeeId);
     }
