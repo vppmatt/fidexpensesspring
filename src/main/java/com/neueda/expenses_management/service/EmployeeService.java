@@ -17,6 +17,9 @@ public class EmployeeService {
     @Autowired
     EmployeeDao employeeDao;
 
+    @Autowired
+    EmployeePublisher employeePublisher;
+
     public List<Employee> getEmployees() {
         List<Employee> employees = employeeDao.getAllEmployees();
 
@@ -29,7 +32,12 @@ public class EmployeeService {
     }
 
     public Employee addEmployee(Employee newEmployee) {
-        return employeeDao.save(newEmployee);
+
+        Employee e = employeeDao.save(newEmployee);
+
+        employeePublisher.sendMessage("employee.created", e.toString());
+        return e;
+
     }
 
     public Employee getEmployee(Integer employeeId) throws EmployeeNotFoundException {

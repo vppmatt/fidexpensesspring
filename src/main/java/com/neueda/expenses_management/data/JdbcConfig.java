@@ -18,7 +18,7 @@ public class JdbcConfig {
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/expenses_management");
+        dataSource.setUrl("jdbc:mysql://svr01.local:3306/expenses_management");
         dataSource.setUsername(env.getProperty("dbuser"));
         dataSource.setPassword(env.getProperty("dbpassword"));
         return dataSource;
