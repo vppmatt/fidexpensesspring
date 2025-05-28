@@ -1,6 +1,9 @@
 package com.neueda.expenses_management.service;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.neueda.expenses_management.model.Employee;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -27,7 +30,13 @@ public class EmployeeConsumer {
             @Header(KafkaHeaders.RECEIVED_KEY) String key,
             @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,
             @Header(KafkaHeaders.RECEIVED_TIMESTAMP) String timestamp,
-            String value) {
+            String value) throws JsonProcessingException {
+
+        ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+        Employee e = om.readValue(value, Employee.class);
+        System.out.println(e);
+        //service.post(e);
         logger.info(String.format("********** EmployeeConsumer actioned message: key %s, topic %s, timestamp %s, value %s", key, topic, timestamp, value));
     }
 

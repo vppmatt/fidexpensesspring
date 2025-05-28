@@ -35,7 +35,7 @@ public class EmployeeService {
 
         Employee e = employeeDao.save(newEmployee);
 
-        employeePublisher.sendMessage("employee.created", e.toString());
+        employeePublisher.sendMessage("employee.created", e);
         return e;
 
     }
