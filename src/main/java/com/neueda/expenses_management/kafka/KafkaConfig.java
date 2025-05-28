@@ -27,11 +27,11 @@ public class KafkaConfig {
         return new KafkaTemplate<>(producerFactory);
     }
 
-    @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, String> kafkaFactory() {
+    @Bean("kafkaListenerContainerFactory")
+    public ConcurrentKafkaListenerContainerFactory<String,String> kafkaFactory() {
 
-        Map<String, Object> configProps = new HashMap<>();
-        configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG , "kafka1.neueda.com:9092");
+        Map<String,Object> configProps = new HashMap<>();
+        configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka1.neueda.com:9092");
         configProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         configProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         ConsumerFactory<String,String> consumerFactory = new DefaultKafkaConsumerFactory<>(configProps);
@@ -39,6 +39,8 @@ public class KafkaConfig {
         factory.setConsumerFactory(consumerFactory);
         return factory;
     }
+
+
 
 
 }
