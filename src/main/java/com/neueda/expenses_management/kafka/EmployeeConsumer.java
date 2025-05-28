@@ -5,7 +5,7 @@ import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class EmployeeConsumer {
 
     @KafkaListener(topics = "employees", groupId="matt")
