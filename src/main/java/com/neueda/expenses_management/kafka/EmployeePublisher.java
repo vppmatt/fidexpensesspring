@@ -3,6 +3,7 @@ package com.neueda.expenses_management.kafka;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.neueda.expenses_management.model.Employee;
+import com.neueda.expenses_management.model.EmployeeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,11 @@ public class EmployeePublisher {
     public void sendNewEmployeeMessage(Employee employee) {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
+
+        EmployeeMessage em = new EmployeeMessage(employee);
         //send (topic, key, value)
         try {
-            kafkaTemplate.send("demo1", employee.getId().toString(), om.writeValueAsString(employee));
+            kafkaTemplate.send("demo1", employee.getId().toString(), om.writeValueAsString(em));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
