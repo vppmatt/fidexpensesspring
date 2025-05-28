@@ -12,7 +12,9 @@ public class EmployeePublisher {
     private KafkaTemplate<String, String> kafkaTemplate;
 
     public void sendNewEmployeeMessage(Employee employee) {
+        //send (topic, key, value)
         kafkaTemplate.send("demo1", employee.getId().toString(), employee.toString());
+
     }
 
 }
