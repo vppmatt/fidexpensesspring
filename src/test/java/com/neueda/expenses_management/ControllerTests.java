@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -26,8 +27,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-//@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
-@WebMvcTest(EmployeeController.class)
+@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
+//@WebMvcTest(EmployeeController.class)
+@AutoConfigureMockMvc
 public class ControllerTests {
 
     @Autowired
