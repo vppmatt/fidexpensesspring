@@ -21,7 +21,7 @@ public class EmployeePublisher {
         EmployeeMessage em = new EmployeeMessage(employee);
         //send (topic, key, value)
         try {
-            kafkaTemplate.send("demo1", employee.getId().toString(), om.writeValueAsString(em));
+            kafkaTemplate.send("employees", employee.getId().toString(), om.writeValueAsString(em));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
