@@ -1,5 +1,9 @@
 package com.neueda.expenses_management.kafka;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.neueda.expenses_management.model.EmployeeMessage;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
@@ -8,6 +12,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmployeeConsumer {
 
+    @Value("${creator}")
+    private String creator;
+
     @KafkaListener(topics = "employees", groupId="matt")
     public void receiveNoticeOfNewEmployee(
             @Header(KafkaHeaders.RECEIVED_KEY) String key,
@@ -15,9 +22,18 @@ public class EmployeeConsumer {
             @Header(KafkaHeaders.RECEIVED_TIMESTAMP)String timestamp,
             String value) {
         //convert value to employeeMessage
+        ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+        try {
+            EmployeeMessage em = om.readValue(value, EmployeeMessage.class);
+            System.out.println("Employee message received " + em);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
         //check if creator is someone differetn
         //if it is save employee to database
-        System.out.println("Message received " + value);
+
     }
 
 

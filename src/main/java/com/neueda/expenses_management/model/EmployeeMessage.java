@@ -21,4 +21,11 @@ public class EmployeeMessage extends Employee {
     public Employee asEmployee() {
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "EmployeeMessage{" +
+                "creator='" + creator + '\'' +
+                "} " + super.toString();
+    }
 }
