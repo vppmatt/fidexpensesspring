@@ -13,6 +13,10 @@ public class EmployeeMessage extends Employee {
         this.creator = creator;
     }
 
+    public EmployeeMessage() {
+        super();
+    }
+
     public EmployeeMessage(Employee e, String creator) {
         super(e.getId(), e.getFirstname(), e.getLastname(), e.getDateJoined(), e.getDepartment(), e.getCostCenter());
         this.creator=creator;

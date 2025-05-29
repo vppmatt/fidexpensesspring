@@ -15,19 +15,27 @@ public class EmployeeConsumer {
     @Value("${creator}")
     private String creator;
 
-    @KafkaListener(topics = "employees", groupId="matt")
+    @KafkaListener(topics = "employees", groupId="${creator}")
     public void receiveNoticeOfNewEmployee(
             @Header(KafkaHeaders.RECEIVED_KEY) String key,
             @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,
             @Header(KafkaHeaders.RECEIVED_TIMESTAMP)String timestamp,
             String value) {
+
+        System.out.println("Message received from kafka" + value);
+
         //convert value to employeeMessage
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
+
+
+
         try {
             EmployeeMessage em = om.readValue(value, EmployeeMessage.class);
             System.out.println("Employee message received " + em);
         } catch (JsonProcessingException e) {
+            System.out.println("ERROR IN JSON PROCESSING " + value);
+            System.out.println(e);
             throw new RuntimeException(e);
         }
 
