@@ -13,9 +13,9 @@ public class EmployeeMessage extends Employee {
         this.creator = creator;
     }
 
-    public EmployeeMessage(Employee e) {
+    public EmployeeMessage(Employee e, String creator) {
         super(e.getId(), e.getFirstname(), e.getLastname(), e.getDateJoined(), e.getDepartment(), e.getCostCenter());
-        this.creator = "matt";
+        this.creator=creator;
     }
 
     public Employee asEmployee() {
