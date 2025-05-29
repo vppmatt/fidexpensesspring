@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.neueda.expenses_management.data.EmployeeDao;
 import com.neueda.expenses_management.model.Employee;
 import com.neueda.expenses_management.model.EmployeeMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -21,6 +23,8 @@ public class EmployeeConsumer {
     @Autowired
     EmployeeDao employeeDao;
 
+    private Logger logger = LoggerFactory.getLogger(EmployeeConsumer.class);
+
     @KafkaListener(topics = "employees", groupId="${creator}")
     public void receiveNoticeOfNewEmployee(
             @Header(KafkaHeaders.RECEIVED_KEY) String key,
@@ -28,7 +32,7 @@ public class EmployeeConsumer {
             @Header(KafkaHeaders.RECEIVED_TIMESTAMP)String timestamp,
             String value) {
 
-        System.out.println("Message received from kafka" + value);
+        logger.debug("Message received from kafka" + value);
 
         //convert value to employeeMessage
         ObjectMapper om = new ObjectMapper();
@@ -45,8 +49,8 @@ public class EmployeeConsumer {
 
 
         } catch (JsonProcessingException e) {
-            System.out.println("ERROR IN JSON PROCESSING " + value);
-            System.out.println(e);
+            logger.info("ERROR IN JSON PROCESSING " + value);
+            logger.error(e.getMessage());
             throw new RuntimeException(e);
         }
 
