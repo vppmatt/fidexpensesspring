@@ -36,4 +36,9 @@ public class EmployeeController {
     public Employee getById(@PathVariable("id") Integer employeeId) throws EmployeeNotFoundException {
         return employeeService.getEmployee(employeeId);
     }
+
+    @GetMapping("/daniel")
+    public String getEmployee(){
+        return "Hello from Daniel";
+    }
 }
