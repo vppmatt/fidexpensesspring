@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -38,7 +39,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/daniel")
-    public String getEmployee(){
-        return "Hello from Daniel";
+    public ResponseEntity<Map<String, Integer>> getEmployee(){
+        return new ResponseEntity<>(Map.of("Daniel", 46), HttpStatus.OK);
     }
 }
